@@ -1,4 +1,4 @@
-# xMine
+# xmnlp
 
 #### the use of NLP
 
