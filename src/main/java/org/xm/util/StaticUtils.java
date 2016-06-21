@@ -29,7 +29,6 @@ public class StaticUtils {
     }
 
     public static void initDic() throws NumberFormatException, IOException {
-        // TODO Auto-generated method stub
         BufferedReader br = null;
         try {
             cnMap = new HashMap<String, int[]>();
