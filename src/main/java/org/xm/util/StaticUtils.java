@@ -39,8 +39,8 @@ public class StaticUtils {
             while ((temp = br.readLine()) != null) {
                 strs = temp.split("\t");
                 cna = new int[2];
-                cna[0] = Integer.parseInt(strs[1]);
-                cna[1] = Integer.parseInt(strs[2]);
+//                cna[0] = Integer.parseInt(strs[1]);
+//                cna[1] = Integer.parseInt(strs[2]);
                 cnMap.put(strs[0], cna);
             }
         } finally {
