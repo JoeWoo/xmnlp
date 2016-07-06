@@ -12,5 +12,6 @@ environment：jdk 1.6
     - 正向最大匹配法
     - 逆向最大匹配法
     - 双向最大匹配法
+3. add jieba segmentation java:2016.07.06
     
 

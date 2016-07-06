@@ -8,7 +8,7 @@ import java.io.UnsupportedEncodingException;
 /**
  * 加载词典用的类
  * 
- * @author xum
+ * @author xuming
  */
 public class DicReader {
 	public static BufferedReader getReader(String name) {
