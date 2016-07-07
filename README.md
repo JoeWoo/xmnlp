@@ -3,7 +3,7 @@
 
 #### author：xuming(shibing624) 
    - environment：jdk 1.7 
-   - time:start at shenzhen in 2016.05.26 
+   - time:start at shenzhen in 2016.05.26
 ---
 
 1. build the project by IDEA 2016.1.1
@@ -103,6 +103,8 @@
 
 #### 许可证
   许可证为ApacheLicence 2.0
+  
+  
         ```
         Copyright (C) 2013 xuming Inc
         
