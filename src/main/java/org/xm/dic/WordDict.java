@@ -17,11 +17,11 @@ import java.util.*;
  */
 public class WordDict {
     private static WordDict wordDict;
-    private static final String MAIN_DICT="/core.txt";
+    private static final String MAIN_DICT = "/core.txt";
     private static String USER_DICT_SUFFIX = ".dict";
 
-    public final Map<String,Double> freqs = new HashMap<String,Double>();
-    public final Map<String,String> natures = new HashMap<String,String>();
+    public final Map<String, Double> freqs = new HashMap<String, Double>();
+    public final Map<String, String> natures = new HashMap<String, String>();
     public final Set<String> loadedPath = new HashSet<String>();
     private Double minFreq = Double.MAX_VALUE;
     private Double total = 0.0;
@@ -38,12 +38,14 @@ public class WordDict {
     public static String ambiguityLibrary = "library/ambiguity.di";
 
 
-    private WordDict(){this.loadDict();}
+    private WordDict() {
+        this.loadDict();
+    }
 
-    public static WordDict getInstance(){
-        if(wordDict == null){
-            synchronized (WordDict.class){
-                if(wordDict == null){
+    public static WordDict getInstance() {
+        if (wordDict == null) {
+            synchronized (WordDict.class) {
+                if (wordDict == null) {
                     wordDict = new WordDict();
                     return wordDict;
                 }
@@ -52,6 +54,7 @@ public class WordDict {
         }
         return wordDict;
     }
+
     public void init(Path configFile) {
         String abspath = configFile.toAbsolutePath().toString();
         System.out.println("initialize user dictionary:" + abspath);
@@ -62,7 +65,7 @@ public class WordDict {
             DirectoryStream<Path> stream;
             try {
                 stream = Files.newDirectoryStream(configFile, String.format(Locale.getDefault(), "*%s", USER_DICT_SUFFIX));
-                for (Path path: stream){
+                for (Path path : stream) {
                     System.err.println(String.format(Locale.getDefault(), "loading dict %s", path.toString()));
                     wordDict.loadUserDict(path);
                 }
@@ -74,6 +77,7 @@ public class WordDict {
             }
         }
     }
+
     public void loadDict() {
         dict = new DictSegment((char) 0);
         InputStream is = this.getClass().getResourceAsStream(MAIN_DICT);
@@ -103,32 +107,29 @@ public class WordDict {
             }
             System.out.println(String.format(Locale.getDefault(), "main dict load finished, time elapsed %d ms",
                     System.currentTimeMillis() - s));
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println(String.format(Locale.getDefault(), "%s load failure!", MAIN_DICT));
-        }
-        finally {
+        } finally {
             try {
                 if (null != is)
                     is.close();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 System.err.println(String.format(Locale.getDefault(), "%s close failure!", MAIN_DICT));
             }
         }
     }
+
     private String addWord(String word) {
         if (null != word && !"".equals(word.trim())) {
             String key = word.trim().toLowerCase(Locale.getDefault());
             dict.fillSegment(key.toCharArray());
             return key;
-        }
-        else
+        } else
             return null;
     }
 
 
-   public void loadUserDict(Path userDict) {
+    public void loadUserDict(Path userDict) {
         loadUserDict(userDict, StandardCharsets.UTF_8);
     }
 
@@ -152,7 +153,7 @@ public class WordDict {
                 String word = tokens[0];
 
                 double freq = 3.0d;
-                String nature ="";
+                String nature = "";
                 if (tokens.length == 2)
                     freq = Double.valueOf(tokens[1]);
                 if (tokens.length == 3)
@@ -165,8 +166,7 @@ public class WordDict {
             }
             System.out.println(String.format(Locale.getDefault(), "user dict %s load finished, total words:%d, time elapsed:%dms", userDict.toString(), count, System.currentTimeMillis() - s));
             br.close();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.err.println(String.format(Locale.getDefault(), "%s: load user dict failure!", userDict.toString()));
         }
     }
@@ -199,6 +199,7 @@ public class WordDict {
         else
             return "";
     }
+
     /**
      * 人名词典
      *

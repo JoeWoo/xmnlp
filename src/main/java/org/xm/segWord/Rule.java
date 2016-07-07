@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class Rule {
 
-    private static final HashMap<String, int[]> dictionary = StaticUtils.getDicMap();
+    private static final HashMap<String, String[]> dictionary = StaticUtils.getRuleDicMap();
 
 
     /**
@@ -34,7 +34,6 @@ public class Rule {
             } else {
                 temp = input.substring(input.length() - max_words);
             }
-
             while (temp.length() > 0) {
                 if (dictionary.get(temp) != null || temp.length() == 1) {
                     //如果在字典中找到某个词，这个词被加入到分词结果中同时从原始输入中删除这个词
@@ -130,7 +129,7 @@ public class Rule {
     }
 
     public static void main(String[] args) {
-        Vector<String> f = ForwardMaxSeg("北京天安门广场人民币种北京天安门广场人民币种北京天安门广场人民币种");
+        Vector<String> f = ForwardMaxSeg("北京天安门广场,人民币种");
         System.out.println(f);
         Vector<String> a = ReverseMaxSeg("北京天安门广场人民币种");
         String rms = a.toString();

@@ -12,35 +12,38 @@ import java.util.HashMap;
  */
 public class StaticUtils {
 
-    private static HashMap<String, int[]> cnMap = null;
+    private static HashMap<String, String[]> cnMap = null;
 
-    public static HashMap<String, int[]> getDicMap() {
-
+    public static HashMap<String, String[]> getRuleDicMap() {
         if (cnMap != null) {
             return cnMap;
         }
         try {
-            initDic();
+            initRuleDicMap();
         } catch (Exception e) {
             e.printStackTrace();
-            cnMap = new HashMap<String, int[]>();
+            cnMap = new HashMap<String, String[]>();
         }
         return cnMap;
     }
 
-    public static void initDic() throws NumberFormatException, IOException {
+    public static void initRuleDicMap() throws NumberFormatException, IOException {
         BufferedReader br = null;
         try {
-            cnMap = new HashMap<String, int[]>();
-            br = StaticUtils.getDicReader();
+            cnMap = new HashMap<String, String[]>();
+            br = StaticUtils.getRuleDicReader();
             String temp = null;
             String[] strs = null;
-            int[] cna = null;
+            String[] cna = null;
             while ((temp = br.readLine()) != null) {
-                strs = temp.split("\t");
-                cna = new int[2];
-//                cna[0] = Integer.parseInt(strs[1]);
-//                cna[1] = Integer.parseInt(strs[2]);
+                strs = temp.split("[\t]");
+                cna = new String[2];
+                if(strs.length == 2){
+                    cna[0] = strs[1];
+                }
+                if(strs.length == 3){
+                    cna[1] = strs[2].trim();
+                }
                 cnMap.put(strs[0], cna);
             }
         } finally {
@@ -54,7 +57,7 @@ public class StaticUtils {
      *
      * @return
      */
-    public static BufferedReader getDicReader() {
-        return DicReader.getReader("core.dic");
+    public static BufferedReader getRuleDicReader() {
+        return DicReader.getReader("ruledict.txt");
     }
 }
