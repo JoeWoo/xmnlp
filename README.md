@@ -2,8 +2,8 @@
 
 
 #### author：xuming(shibing624) 
-#### time:start at shenzhen in 2016.05.26 
-#### environment：jdk 1.7 
+##### time:start at shenzhen in 2016.05.26 
+##### environment：jdk 1.7 
 ---
 
 1. build the project by IDEA 2016.1.1
@@ -20,29 +20,32 @@
 * 简介
 
 
-** 支持分词模式
+#### 支持分词模式
    - Search模式，用于对用户查询词分词
    - Index模式，用于对索引文档分词
 
-** 特性
+#### 特性
    - 支持多种分词模式
    - 全角统一转成半角
    - 用户词典功能
    - conf 目录有整理的搜狗细胞词库和一个自定义词库，可加载多个用户词库
 
-* 如何获取
+#### 如何获取
   - 当前稳定版本
-    
-      <dependency>
-      <groupId>com.pycredit.nlpfirst</groupId>
-      <artifactId>segmentation</artifactId>
-      <version>1.0-SNAPSHOT</version>
-      </dependency>
+  
+    ```
+  	<dependency>
+            <groupId>com.pycredit.nlpfirst</groupId>
+            <artifactId>segmentation</artifactId>
+            <version>1.0-SNAPSHOT</version>
+    </dependency>
+  	```
     
 
-
-* 如何使用
+#### 如何使用
   - Demo
+	
+	
 	```
 	Segmenter segmenter = new Segmenter();
 	    String[] sentences =
@@ -55,13 +58,13 @@
 	```
 
 
-* 算法
+#### 算法
   - [ ] 基于 =trie= 树结构实现高效词图扫描
   - [ ] 生成所有切词可能的有向无环图 =DAG=
   - [ ] 采用动态规划算法计算最佳切词组合
   - [ ] 基于 =HMM= 模型，采用 =Viterbi= (维特比)算法实现未登录词识别
 
-* 性能评估
+#### 性能评估
   - 测试机配置
 	```
 	Processor 2 Intel(R) Pentium(R) CPU G620 @ 2.60GHz
@@ -98,16 +101,16 @@
 
     
 
-* 许可证
+#### 许可证
   许可证为ApacheLicence 2.0
-    ```
-    Copyright (C) 2013 xuming Inc
-
-    Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-    Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
-    ```
+     ```
+        Copyright (C) 2013 xuming Inc
+        
+        Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+        
+        http://www.apache.org/licenses/LICENSE-2.0
+        
+        Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+     ```
     
 
