@@ -5,6 +5,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 
@@ -22,8 +26,6 @@ public class WordDict {
     private Double minFreq = Double.MAX_VALUE;
     private Double total = 0.0;
     private DictSegment dict;
-    private String nature = "";
-
 
     // 用户自定义词典
     public static final Map<String, Object> DIC = new HashMap<String, Object>();
@@ -34,60 +36,6 @@ public class WordDict {
      * 用户自定义词典的加载,如果是路径就扫描路径下的dic文件
      */
     public static String ambiguityLibrary = "library/ambiguity.di";
-    /**
-     * 是否用户辞典不加载相同的词
-     */
-    public static boolean isSkipUserDefine = false;
-
-   /* static {
-        *//**
-         * 配置文件变量
-         *//*
-        ResourceBundle rb = null;
-        try {
-            rb = ResourceBundle.getBundle("library");
-        } catch (Exception e) {
-            try {
-                File find = FileFinder.find("library.properties", 2);
-                if (find != null && find.isFile()) {
-                    rb = new PropertyResourceBundle(IOUtil.getReader(find.getAbsolutePath(), System.getProperty("file.encoding")));
-                    System.out.println("load library not find in classPath ! i find it in " + find.getAbsolutePath() + " make sure it is your config!");
-                }
-            } catch (Exception e1) {
-                System.out.println("not find library.properties. and err " + e.getMessage() + " i think it is a bug!");
-            }
-        }
-
-
-        if (rb == null) {
-            System.out.println("not find library.properties in classpath use it by default !");
-        } else {
-
-            for (String key : rb.keySet()) {
-
-                if (key.equals("dic")) {
-                    DIC.put(key, rb.getString(key));
-                } else if (key.equals("crf")) {
-                    CRF.put(key, rb.getString(key));
-                } else {
-                    try {
-                        Field field = WordDict.class.getField(key);
-                        field.set(null, ObjConver.conversion(rb.getString(key), field.getType()));
-                    } catch (NoSuchFieldException e) {
-                        e.printStackTrace();
-                    } catch (SecurityException e) {
-                        e.printStackTrace();
-                    } catch (IllegalArgumentException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }
-
-        }
-    }*/
 
 
     private WordDict(){this.loadDict();}
@@ -104,7 +52,7 @@ public class WordDict {
         }
         return wordDict;
     }
-   /* public void init(Path configFile) {
+    public void init(Path configFile) {
         String abspath = configFile.toAbsolutePath().toString();
         System.out.println("initialize user dictionary:" + abspath);
         synchronized (WordDict.class) {
@@ -125,7 +73,7 @@ public class WordDict {
                 System.err.println(String.format(Locale.getDefault(), "%s: load user dict failure!", configFile.toString()));
             }
         }
-    }*/
+    }
     public void loadDict() {
         dict = new DictSegment((char) 0);
         InputStream is = this.getClass().getResourceAsStream(MAIN_DICT);
@@ -180,7 +128,7 @@ public class WordDict {
     }
 
 
-/*    public void loadUserDict(Path userDict) {
+   public void loadUserDict(Path userDict) {
         loadUserDict(userDict, StandardCharsets.UTF_8);
     }
 
@@ -190,11 +138,13 @@ public class WordDict {
             BufferedReader br = Files.newBufferedReader(userDict, charset);
             long s = System.currentTimeMillis();
             int count = 0;
+
+
             while (br.ready()) {
                 String line = br.readLine();
                 String[] tokens = line.split("[\t ]+");
 
-                if (tokens.length < 1) {
+                if (tokens.length < 2) {
                     // Ignore empty line
                     continue;
                 }
@@ -202,10 +152,15 @@ public class WordDict {
                 String word = tokens[0];
 
                 double freq = 3.0d;
+                String nature ="";
                 if (tokens.length == 2)
                     freq = Double.valueOf(tokens[1]);
+                if (tokens.length == 3)
+                    nature = String.valueOf(tokens[2]);
                 word = addWord(word);
+                total += freq;
                 freqs.put(word, Math.log(freq / total));
+                natures.put(word, nature);
                 count++;
             }
             System.out.println(String.format(Locale.getDefault(), "user dict %s load finished, total words:%d, time elapsed:%dms", userDict.toString(), count, System.currentTimeMillis() - s));
@@ -214,7 +169,7 @@ public class WordDict {
         catch (IOException e) {
             System.err.println(String.format(Locale.getDefault(), "%s: load user dict failure!", userDict.toString()));
         }
-    }*/
+    }
 
 
     public DictSegment getTrie() {
@@ -250,7 +205,7 @@ public class WordDict {
      * @return
      */
     public static BufferedReader getPersonReader() {
-        return DicReader.getReader("core.txt");
+        return DicReader.getReader("person.txt");
     }
 
 }
