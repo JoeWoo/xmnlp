@@ -13,9 +13,6 @@ import java.nio.file.Paths;
 public class BaseDemo {
 
     public static void main(String[] args) {
-
-
-
         WordDict.getInstance().init(Paths.get("conf"));
         Segmenter segmenter = new Segmenter();
         String[] sentences =
