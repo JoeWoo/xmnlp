@@ -1,13 +1,10 @@
 package org.xm;
 
-import org.xm.domain.Term;
-import org.xm.tokenizer.StandardTokenizer;
 import org.xm.util.Predefine;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
@@ -146,7 +143,7 @@ public class Xmnlp {
                         : new FileInputStream(Predefine.PROPERTIES_PATH), "UTF-8"));
                 String root = p.getProperty("root", "").replaceAll("\\\\", "/");
                 if (!root.endsWith("/")) root += "/";
-                CoreDictionaryPath = root+p.getProperty("CoreDictionaryPath", CoreDictionaryPath);
+                CoreDictionaryPath = root + p.getProperty("CoreDictionaryPath", CoreDictionaryPath);
                 CoreDictionaryTransformMatrixDictionaryPath = root + p.getProperty("CoreDictionaryTransformMatrixDictionaryPath", CoreDictionaryTransformMatrixDictionaryPath);
                 BiGramDictionaryPath = root + p.getProperty("BiGramDictionaryPath", BiGramDictionaryPath);
                 CoreStopWordDictionaryPath = root + p.getProperty("CoreStopWordDictionaryPath", CoreStopWordDictionaryPath);
@@ -207,34 +204,32 @@ public class Xmnlp {
 
             }
         }
+
         /**
          * 开启调试模式(会降低性能)
          */
-        public static void enableDebug()
-        {
+        public static void enableDebug() {
             enableDebug(true);
         }
 
         /**
          * 开启调试模式(会降低性能)
+         *
          * @param enable
          */
-        public static void enableDebug(boolean enable)
-        {
+        public static void enableDebug(boolean enable) {
             DEBUG = enable;
-            if (DEBUG)
-            {
+            if (DEBUG) {
                 logger.setLevel(Level.ALL);
-            }
-            else
-            {
+            } else {
                 logger.setLevel(Level.OFF);
             }
         }
 
     }
 
-    private Xmnlp(){}
+    private Xmnlp() {
+    }
 
 
     /**
@@ -243,11 +238,10 @@ public class Xmnlp {
      * @param text 文本
      * @return 切分后的单词
      */
-    public static List<Term> segment(String text)
-    {
+   /* public static List<Term> segment(String text) {
         return StandardTokenizer.segment(text.toCharArray());
     }
-
+*/
     /**
      * 创建一个分词器<br>
      * 这是一个工厂方法<br>
