@@ -1,8 +1,9 @@
-package Demo;
+package org.xm.xmnlp.demo;
 
-import org.xm.dic.WordDict;
-import org.xm.segWord.SegMode;
-import org.xm.segWord.Segmenter;
+
+import org.xm.xmnlp.dic.WordDict;
+import org.xm.xmnlp.segword.SegMode;
+import org.xm.xmnlp.segword.Segmenter;
 
 import java.nio.file.Paths;
 

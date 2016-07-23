@@ -1,6 +1,7 @@
-package Demo;
+package org.xm.xmnlp.demo;
 
-import org.xm.segWord.Segmenter;
+
+import org.xm.xmnlp.segword.Segmenter;
 
 /**
  * Created by xuming on 2016/7/6.

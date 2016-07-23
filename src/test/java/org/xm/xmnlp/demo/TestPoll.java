@@ -1,4 +1,4 @@
-package Demo;
+package org.xm.xmnlp.demo;
 
 import java.util.LinkedList;
 import java.util.Queue;

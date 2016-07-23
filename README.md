@@ -13,6 +13,8 @@
     - 逆向最大匹配法
     - 双向最大匹配法
 3. add jieba segmentation java:2016.07.06
+4. add hanlp to xmnlp 2016.07.23
+	- 最短路径分词，最短路求解采用Viterbi算法
 
 
 

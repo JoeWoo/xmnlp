@@ -1,15 +1,13 @@
-/**
- * 
- */
-package Test;
+package org.xm.xmnlp.test;
 
 
 import junit.framework.TestCase;
 import org.junit.Test;
-import org.xm.dic.Item;
-import org.xm.dic.WordDict;
-import org.xm.segWord.SegMode;
-import org.xm.segWord.Segmenter;
+import org.xm.xmnlp.dic.Item;
+import org.xm.xmnlp.dic.WordDict;
+import org.xm.xmnlp.segword.Rule;
+import org.xm.xmnlp.segword.SegMode;
+import org.xm.xmnlp.segword.Segmenter;
 
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Paths;
@@ -17,9 +15,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
 
-import static org.xm.segWord.Rule.BIMaxSeg;
-import static org.xm.segWord.Rule.ForwardMaxSeg;
-import static org.xm.segWord.Rule.ReverseMaxSeg;
 
 public class BaseTest extends TestCase {
     protected Segmenter segmenter = new Segmenter();
@@ -74,18 +69,6 @@ public class BaseTest extends TestCase {
                           "我们买了一个美的空调",
                           "线程初始化时我们要注意",
                           "一个分子是由好多原子组织成的",
-                          "祝你马到功成",
-                          "他掉进了无底洞里",
-                          "中国的首都是北京",
-                          "孙君意",
-                          "外交部发言人马朝旭",
-                          "领导人会议和第四届东亚峰会",
-                          "在过去的这五年",
-                          "还需要很长的路要走",
-                          "60周年首都阅兵",
-                          "你好人们审美的观点是不同的",
-                          "买水果然后来世博园",
-                          "买水果然后去世博园",
                           "但是后来我才知道你是对的",
                           "存在即合理",
                           "的的的的的在的的的的就以和和和",
@@ -194,19 +177,20 @@ public class BaseTest extends TestCase {
 
     @Test
     public void testRuleSeg() {
+        Rule rule = new Rule();
         String[] bugs =
                 new String[] {
                         "北京天安门广场人民币种",
                         "干脆就把那部蒙人的闲法给废了拉倒！RT @laoshipukong : 27日，全国人大常委会第三次审议侵权责任法草案，删除了有关医疗损害责任“举证倒置”的规定。在医患纠纷中本已处于弱势地位的消费者由此将陷入万劫不复的境地。 " };
         for (String sentence : bugs) {
-            Vector<String> f = ForwardMaxSeg(sentence);
+            Vector<String> f = rule.ForwardMaxSeg(sentence);
             System.out.print(String.format(Locale.getDefault(), "\n%s\n%s", sentence, f.toString()));
         }
 
-        Vector<String> a = ReverseMaxSeg("北京天安门广场人民币种");
+        Vector<String> a = rule.ReverseMaxSeg("北京天安门广场人民币种");
         String rms = a.toString();
         System.out.println(rms);
-        Vector<String> b = BIMaxSeg("北京天安门，广场人民币种，种族主义");
+        Vector<String> b = rule.BIMaxSeg("北京天安门，广场人民币种，种族主义");
         System.out.println(b);
     }
 
