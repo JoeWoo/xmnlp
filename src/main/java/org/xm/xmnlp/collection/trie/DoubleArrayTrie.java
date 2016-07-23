@@ -48,7 +48,6 @@ public class DoubleArrayTrie<V> implements Serializable, ITrie<V> {
         }
     }
 
-    ;
 
     protected int check[];
     protected int base[];
@@ -70,7 +69,6 @@ public class DoubleArrayTrie<V> implements Serializable, ITrie<V> {
     int error_;
 
     // int (*progressfunc_) (size_t, size_t);
-
     // inline _resize expanded
 
     /**

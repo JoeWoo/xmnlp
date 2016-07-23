@@ -426,7 +426,7 @@ public class Vertex {
 //        return "WordNode{" +
 //                "word='" + word + '\'' +
 //                (word.equals(realWord) ? "" : (", realWord='" + realWord + '\'')) +
-////                ", attribute=" + attribute +
+//                ", attribute=" + attribute +
 //                '}';
     }
 }

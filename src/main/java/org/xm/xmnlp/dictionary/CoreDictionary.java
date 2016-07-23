@@ -34,7 +34,7 @@ public class CoreDictionary {
         public int totalFrequency;
 
         // 几个预定义的变量
-//        public static Attribute NUMBER = new Attribute()
+        //public static Attribute NUMBER = new Attribute()
 
         public Attribute(int size) {
             nature = new Nature[size];

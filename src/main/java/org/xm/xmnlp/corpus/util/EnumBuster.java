@@ -13,10 +13,8 @@ import java.util.*;
  * @param <E>
  */
 public class EnumBuster<E extends Enum<E>> {
-    private static final Class[] EMPTY_CLASS_ARRAY =
-            new Class[0];
-    private static final Object[] EMPTY_OBJECT_ARRAY =
-            new Object[0];
+    private static final Class[] EMPTY_CLASS_ARRAY = new Class[0];
+    private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
 
     private static final String VALUES_FIELD = "$VALUES";
     private static final String ORDINAL_FIELD = "ordinal";
@@ -28,8 +26,7 @@ public class EnumBuster<E extends Enum<E>> {
 
     private final Collection<Field> switchFields;
 
-    private final Deque<Memento> undoStack =
-            new LinkedList<Memento>();
+    private final Deque<Memento> undoStack = new LinkedList<Memento>();
 
     /**
      * Construct an EnumBuster for the given enum class and keep
@@ -121,8 +118,7 @@ public class EnumBuster<E extends Enum<E>> {
 
             // we did not find it in the existing array, thus
             // append it to the array
-            E[] newValues =
-                    Arrays.copyOf(values, values.length + 1);
+            E[] newValues = Arrays.copyOf(values, values.length + 1);
             newValues[newValues.length - 1] = e;
             ReflectionHelper.setStaticFinalField(
                     valuesField, newValues);

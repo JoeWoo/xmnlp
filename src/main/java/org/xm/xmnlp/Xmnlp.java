@@ -18,6 +18,7 @@ import static org.xm.xmnlp.util.Predefine.logger;
 /**
  * Xmnlp : xuming nlp 自然语言处理工具包
  * 常用接口工具类
+ *
  * Created by xuming on 2016/7/22.
  */
 public class Xmnlp {
@@ -187,7 +188,8 @@ public class Xmnlp {
                 ShowTermNature = "true".equals(p.getProperty("ShowTermNature", "true"));
                 Normalization = "true".equals(p.getProperty("Normalization", "false"));
             } catch (Exception e) {
-                StringBuffer sbInfo = new StringBuffer("----------tips--------\n make sure the xmnlp.properties is exist.");
+                StringBuffer sbInfo = new StringBuffer("----------tips--------\n " +
+                        "make sure the xmnlp.properties is exist.");
                 String classPath = (String) System.getProperties().get("java.class.path");
                 if (classPath != null) {
                     for (String path : classPath.split(File.pathSeparator)) {

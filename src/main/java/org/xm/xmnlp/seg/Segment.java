@@ -28,7 +28,7 @@ import static org.xm.xmnlp.util.Predefine.logger;
  * 分词器（分词服务）<br>
  * 是所有分词器的基类（Abstract）<br>
  * 分词器的分词方法是线程安全的，但配置方法则不保证
- *
+ * <p/>
  * Created by xuming on 2016/7/22.
  */
 public abstract class Segment {
@@ -274,8 +274,7 @@ public abstract class Segment {
         if (Xmnlp.Config.Normalization) {
             CharTable.normalization(charArray);
         }
-        if (config.threadNumber > 1 && charArray.length > 10000)    // 小文本多线程没意义，反而变慢了
-        {
+        if (config.threadNumber > 1 && charArray.length > 10000) {    // 小文本多线程没意义，反而变慢了
             List<String> sentenceList = SentencesUtil.toSentenceList(charArray);
             String[] sentenceArray = new String[sentenceList.size()];
             sentenceList.toArray(sentenceArray);
@@ -292,15 +291,14 @@ public abstract class Segment {
             threadArray[config.threadNumber - 1].start();
             try {
                 for (WorkThread thread : threadArray) {
-                    thread.join();
+                    thread.join();  // 主线程需要用到子线程的结果，主线程等子线程都执行完毕
                 }
             } catch (InterruptedException e) {
                 logger.severe("线程同步异常：" + TextUtil.exceptionToString(e));
                 return Collections.emptyList();
             }
             List<Term> termList = new LinkedList<Term>();
-            if (config.offset || config.indexMode)  // 由于分割了句子，所以需要重新校正offset
-            {
+            if (config.offset || config.indexMode) { // 由于分割了句子，所以需要重新校正offset
                 int sentenceOffset = 0;
                 for (int i = 0; i < sentenceArray.length; ++i) {
                     for (Term term : termListArray[i]) {
@@ -319,15 +317,14 @@ public abstract class Segment {
         }
         return segSentence(charArray);
     }
-    private class WorkThread extends Thread
-    {
+
+    private class WorkThread extends Thread {
         String[] sentenceArray;
         List<Term>[] termListArray;
         int from;
         int to;
 
-        public WorkThread(String[] sentenceArray, List<Term>[] termListArray, int from, int to)
-        {
+        public WorkThread(String[] sentenceArray, List<Term>[] termListArray, int from, int to) {
             this.sentenceArray = sentenceArray;
             this.termListArray = termListArray;
             this.from = from;
@@ -335,10 +332,8 @@ public abstract class Segment {
         }
 
         @Override
-        public void run()
-        {
-            for (int i = from; i < to; ++i)
-            {
+        public void run() {
+            for (int i = from; i < to; ++i) {
                 termListArray[i] = segSentence(sentenceArray[i].toCharArray());
             }
         }
@@ -346,11 +341,11 @@ public abstract class Segment {
 
     /**
      * 开启多线程
+     *
      * @param enable true表示开启4个线程，false表示单线程
      * @return
      */
-    public Segment enableMultithreading(boolean enable)
-    {
+    public Segment enableMultithreading(boolean enable) {
         if (enable) config.threadNumber = 4;
         else config.threadNumber = 1;
         return this;
@@ -358,12 +353,141 @@ public abstract class Segment {
 
     /**
      * 开启多线程
+     *
      * @param threadNumber 线程数量
      * @return
      */
-    public Segment enableMultithreading(int threadNumber)
-    {
+    public Segment enableMultithreading(int threadNumber) {
         config.threadNumber = threadNumber;
+        return this;
+    }
+
+    /**
+     * 是否开启人名识别
+     *
+     * @param enable
+     * @return
+     */
+    public Segment enableNameRecognize(boolean enable) {
+        config.nameRecognize = enable;
+        config.updateNerConfig();
+        return this;
+    }
+
+    /**
+     * 是否启用音译人名识别
+     *
+     * @param enable
+     */
+    public Segment enableTranslatedNameRecognize(boolean enable) {
+        config.translatedNameRecognize = enable;
+        config.updateNerConfig();
+        return this;
+    }
+
+    /**
+     * 是否启用日本人名识别
+     *
+     * @param enable
+     */
+    public Segment enableJapaneseNameRecognize(boolean enable) {
+        config.japaneseNameRecognize = enable;
+        config.updateNerConfig();
+        return this;
+    }
+
+    /**
+     * 开启地名识别
+     *
+     * @param enable
+     * @return
+     */
+    public Segment enablePlaceRecognize(boolean enable) {
+        config.placeRecognize = enable;
+        config.updateNerConfig();
+        return this;
+    }
+
+    /**
+     * 开启机构名识别
+     *
+     * @param enable
+     * @return
+     */
+    public Segment enableOrganizationRecognize(boolean enable) {
+        config.organizationRecognize = enable;
+        config.updateNerConfig();
+        return this;
+    }
+
+    /**
+     * 是否启用用户词典
+     *
+     * @param enable
+     */
+    public Segment enableCustomDictionary(boolean enable) {
+        config.useCustomDictionary = enable;
+        return this;
+    }
+
+
+    /**
+     * 是否启用偏移量计算（开启后Term.offset才会被计算）
+     *
+     * @param enable
+     * @return
+     */
+    public Segment enableOffset(boolean enable) {
+        config.offset = enable;
+        return this;
+    }
+
+    /**
+     * 是否启用数词和数量词识别<br>
+     * 即[二, 十, 一] => [二十一]，[十, 九, 元] => [十九元]
+     *
+     * @param enable
+     * @return
+     */
+    public Segment enableNumberQuantifierRecognize(boolean enable) {
+        config.numberQuantifierRecognize = enable;
+        return this;
+    }
+
+    /**
+     * 是否启用所有的命名实体识别
+     *
+     * @param enable
+     * @return
+     */
+    public Segment enableAllNamedEntityRecognize(boolean enable) {
+        config.nameRecognize = enable;
+        config.japaneseNameRecognize = enable;
+        config.translatedNameRecognize = enable;
+        config.placeRecognize = enable;
+        config.organizationRecognize = enable;
+        config.updateNerConfig();
+        return this;
+    }
+
+    /**
+     * 设为索引模式
+     *
+     * @return
+     */
+    public Segment enableIndexMode(boolean enable) {
+        config.indexMode = enable;
+        return this;
+    }
+
+    /**
+     * 开启词性标注
+     *
+     * @param enable
+     * @return
+     */
+    public Segment enablePartOfSpeechTagging(boolean enable) {
+        config.speechTagging = enable;
         return this;
     }
 

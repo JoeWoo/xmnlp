@@ -2,19 +2,17 @@
 
 
 #### author：xuming(shibing624) 
-   - environment：jdk 1.7 
+#### environment：jdk 1.6
     
-   
----
 
-1. build the project by IDEA 2016
-2. add the rule chinese word segmentation: 2016.06.21
+1. add the rule chinese word segmentation: 2016.06.21
     - 正向最大匹配法
     - 逆向最大匹配法
     - 双向最大匹配法
-3. add jieba segmentation java:2016.07.06
-4. add xmnlp to xmnlp 2016.07.23
+2. add jieba segmentation java:2016.07.06
+3. add xmnlp to xmnlp 2016.07.23
 	- 最短路径分词，最短路求解采用Viterbi算法
+	- 添加人名识别功能：中文人名，日本人名识别
 
 
 

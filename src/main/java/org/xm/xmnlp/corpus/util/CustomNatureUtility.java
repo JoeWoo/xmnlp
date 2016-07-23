@@ -1,18 +1,8 @@
-/*
- * <summary></summary>
- * <author>He Han</author>
- * <email>me@hankcs.com</email>
- * <create-date>2016/1/4 16:02</create-date>
- *
- * <copyright file="CustomNatureUtility.java" company="码农场">
- * Copyright (c) 2008-2016, 码农场. All Right Reserved, http://www.hankcs.com/
- * This source is subject to Hankcs. Please contact Hankcs to get more information.
- * </copyright>
- */
 package org.xm.xmnlp.corpus.util;
 
 
 import org.xm.xmnlp.corpus.tag.Nature;
+import org.xm.xmnlp.dictionary.CustomDictionary;
 import org.xm.xmnlp.seg.domain.Vertex;
 
 import java.util.Map;
@@ -36,8 +26,9 @@ public class CustomNatureUtility {
     /**
      * 动态增加词性工具
      */
-    private static EnumBuster<Nature> enumBuster = new EnumBuster<Nature>(Nature.class,
-//                                                                          CustomDictionary.class,
+    private static EnumBuster<Nature> enumBuster = new EnumBuster<Nature>(
+            Nature.class,
+            CustomDictionary.class,
             Vertex.class
 //                                                                          PersonRecognition.class,
 //                                                                          OrganizationRecognition.class

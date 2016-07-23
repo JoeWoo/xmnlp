@@ -365,21 +365,11 @@ public abstract class WordBasedModelSegment extends Segment {
      */
     protected void GenerateWordNet(final WordNet wordNetStorage) {
         final char[] charArray = wordNetStorage.charArray;
-
         // 核心词典查询
         DoubleArrayTrie<CoreDictionary.Attribute>.Searcher searcher = CoreDictionary.trie.getSearcher(charArray, 0);
         while (searcher.next()) {
             wordNetStorage.add(searcher.begin + 1, new Vertex(new String(charArray, searcher.begin, searcher.length), searcher.value, searcher.index));
         }
-        // 用户词典查询
-        /*   if (config.useCustomDictionary)
-        {
-            searcher = CustomDictionary.dat.getSearcher(charArray, 0);
-            while (searcher.next())
-            {
-                wordNetStorage.add(searcher.begin + 1, new Vertex(new String(charArray, searcher.begin, searcher.length), searcher.value));
-            }
-        }*/
         // 原子分词，保证图连通
         LinkedList<Vertex>[] vertexes = wordNetStorage.getVertexes();
         for (int i = 1; i < vertexes.length; ) {
