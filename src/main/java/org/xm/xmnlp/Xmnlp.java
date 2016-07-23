@@ -1,14 +1,19 @@
-package org.xm;
+package org.xm.xmnlp;
 
-import org.xm.util.Predefine;
+import org.xm.xmnlp.seg.Segment;
+import org.xm.xmnlp.seg.domain.Term;
+import org.xm.xmnlp.seg.viterbi.ViterbiSegment;
+import org.xm.xmnlp.tokenizer.StandardTokenizer;
+import org.xm.xmnlp.util.Predefine;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 
-import static org.xm.util.Predefine.logger;
+import static org.xm.xmnlp.util.Predefine.logger;
 
 /**
  * Xmnlp : xuming nlp 自然语言处理工具包
@@ -16,8 +21,6 @@ import static org.xm.util.Predefine.logger;
  * Created by xuming on 2016/7/22.
  */
 public class Xmnlp {
-
-
     public static final class Config {
         public static boolean DEBUG = false;
         public static String CoreDictionaryPath = "data/dictionary/CoreNatureDictionary.txt";
@@ -193,14 +196,14 @@ public class Xmnlp {
                         }
                     }
                 }
-                sbInfo.append("Web项目则请放到下列目录：\n" +
-                        "Webapp/WEB-INF/lib\n" +
-                        "Webapp/WEB-INF/classes\n" +
-                        "Appserver/lib\n" +
-                        "JRE/lib\n");
-                sbInfo.append("并且编辑root=PARENT/path/to/your/data\n");
-                sbInfo.append("现在HanLP将尝试从").append(System.getProperties().get("user.dir")).append("读取data……");
-                logger.severe("没有找到HanLP.properties，可能会导致找不到data\n" + sbInfo);
+//                sbInfo.append("Web项目则请放到下列目录：\n" +
+//                        "Webapp/WEB-INF/lib\n" +
+//                        "Webapp/WEB-INF/classes\n" +
+//                        "Appserver/lib\n" +
+//                        "JRE/lib\n");
+//                sbInfo.append("并且编辑root=PARENT/path/to/your/data\n");
+                sbInfo.append("现在Xmnlp将尝试从").append(System.getProperties().get("user.dir")).append("读取data……");
+//                logger.severe("没有找到Xmnlp.properties，可能会导致找不到data\n" + sbInfo);
 
             }
         }
@@ -238,19 +241,19 @@ public class Xmnlp {
      * @param text 文本
      * @return 切分后的单词
      */
-   /* public static List<Term> segment(String text) {
+    public static List<Term> segment(String text) {
         return StandardTokenizer.segment(text.toCharArray());
     }
-*/
+
     /**
      * 创建一个分词器<br>
      * 这是一个工厂方法<br>
-     * 与直接new一个分词器相比，使用本方法的好处是，以后HanLP升级了，总能用上最合适的分词器
+     * 与直接new一个分词器相比，使用本方法的好处是，以后升级了，总能用上最合适的分词器
+     *
      * @return 一个分词器
      */
-//    public static Segment newSegment()
-//    {
-//        return new ViterbiSegment();   // Viterbi分词器是目前效率和效果的最佳平衡
-//    }
+    public static Segment newSegment() {
+        return new ViterbiSegment();   // Viterbi分词器是目前效率和效果的最佳平衡
+    }
 
 }
