@@ -82,6 +82,7 @@ public class EnumItem<E extends Enum<E>> {
 
     /**
      * 实现遍历新建项
+     *
      * @param array
      * @return
      */

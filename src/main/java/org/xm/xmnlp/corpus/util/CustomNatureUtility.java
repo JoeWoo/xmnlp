@@ -13,7 +13,6 @@ import static org.xm.xmnlp.util.Predefine.logger;
 /**
  * 运行时动态增加词性工具
  *
- * @author hankcs
  */
 public class CustomNatureUtility {
     static {
