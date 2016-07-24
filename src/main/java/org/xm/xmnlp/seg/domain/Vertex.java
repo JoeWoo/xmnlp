@@ -11,6 +11,7 @@ import java.util.Map;
 import static org.xm.xmnlp.util.Predefine.logger;
 
 /**
+ * 顶点
  * Created by mingzai on 2016/7/23.
  */
 public class Vertex {
@@ -239,7 +240,6 @@ public class Vertex {
      */
     public boolean confirmNature(Nature nature, boolean updateWord) {
         switch (nature) {
-
             case m:
                 word = Predefine.TAG_NUMBER;
                 break;

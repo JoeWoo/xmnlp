@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class PersonRecognition {
     public static boolean recognition(List<Vertex> words, WordNet wordNetOptimum, WordNet wordNetAll) {
-        List<EnumItem<NR>> roleTagList = roleObserve(words);
+        List<EnumItem<NR>> roleTagList = getRoleTags(words);
         if (Xmnlp.Config.DEBUG) {
             StringBuffer sbLog = new StringBuffer();
             Iterator<Vertex> iterator = words.iterator();
@@ -49,7 +49,6 @@ public class PersonRecognition {
 
         PersonDictionary.parsePattern(nrList, words, wordNetOptimum, wordNetAll);
         return true;
-
     }
 
     /**
@@ -58,7 +57,7 @@ public class PersonRecognition {
      * @param wordSegResult 粗分结果
      * @return
      */
-    public static List<EnumItem<NR>> roleObserve(List<Vertex> wordSegResult) {
+    public static List<EnumItem<NR>> getRoleTags(List<Vertex> wordSegResult) {
         List<EnumItem<NR>> tagList = new LinkedList<EnumItem<NR>>();
         for (Vertex vertex : wordSegResult) {
             EnumItem<NR> nrEnumItem = PersonDictionary.dictionary.get(vertex.realWord);

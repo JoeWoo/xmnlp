@@ -274,7 +274,7 @@ public abstract class Segment {
         if (Xmnlp.Config.Normalization) {
             CharTable.normalization(charArray);
         }
-        if (config.threadNumber > 1 && charArray.length > 10000) {    // 小文本多线程没意义，反而变慢了
+        if (config.threadNumber > 1 && charArray.length > 10000) { // 小文本多线程没意义，反而变慢了
             List<String> sentenceList = SentencesUtil.toSentenceList(charArray);
             String[] sentenceArray = new String[sentenceList.size()];
             sentenceList.toArray(sentenceArray);

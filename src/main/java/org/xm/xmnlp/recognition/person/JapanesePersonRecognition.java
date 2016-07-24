@@ -1,6 +1,5 @@
 package org.xm.xmnlp.recognition.person;
 
-
 import org.xm.xmnlp.corpus.tag.Nature;
 import org.xm.xmnlp.dictionary.BaseSearcher;
 import org.xm.xmnlp.dictionary.CoreDictionary;
@@ -24,7 +23,7 @@ public class JapanesePersonRecognition {
      * @param wordNetOptimum 粗分结果对应的词图
      * @param wordNetAll     全词图
      */
-    public static void Recognition(List<Vertex> segResult, WordNet wordNetOptimum, WordNet wordNetAll) {
+    public static void recognition(List<Vertex> segResult, WordNet wordNetOptimum, WordNet wordNetAll) {
         StringBuilder sbName = new StringBuilder();
         int appendTimes = 0;
         char[] charArray = wordNetAll.charArray;

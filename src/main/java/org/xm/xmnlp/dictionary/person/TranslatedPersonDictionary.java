@@ -65,7 +65,6 @@ public class TranslatedPersonDictionary {
             logger.severe("自定义词典" + path + "读取错误！" + e);
             return false;
         }
-
         return true;
     }
 

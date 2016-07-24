@@ -92,7 +92,6 @@ public class EnumItem<E extends Enum<E>> {
         Map.Entry<String, Integer>[] entries = (Map.Entry<String, Integer>[]) Array.newInstance(Map.Entry.class, natureCount);
         for (int i = 0; i < natureCount; ++i) {
             entries[i] = new AbstractMap.SimpleEntry<String, Integer>(array[1 + 2 * i], Integer.parseInt(array[2 + 2 * i]));
-
         }
         return new AbstractMap.SimpleEntry<String, Map.Entry<String, Integer>[]>(array[0], entries);
     }

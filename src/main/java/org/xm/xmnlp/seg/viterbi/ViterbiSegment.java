@@ -2,9 +2,11 @@ package org.xm.xmnlp.seg.viterbi;
 
 
 import org.xm.xmnlp.Xmnlp;
+import org.xm.xmnlp.recognition.organ.OrganizationRecognition;
 import org.xm.xmnlp.recognition.person.JapanesePersonRecognition;
 import org.xm.xmnlp.recognition.person.PersonRecognition;
 import org.xm.xmnlp.recognition.person.TranslatedPersonRecognition;
+import org.xm.xmnlp.recognition.place.PlaceRecognition;
 import org.xm.xmnlp.seg.WordBasedModelSegment;
 import org.xm.xmnlp.seg.domain.Term;
 import org.xm.xmnlp.seg.domain.Vertex;
@@ -47,13 +49,13 @@ public class ViterbiSegment extends WordBasedModelSegment {
                 PersonRecognition.recognition(vertexList, wordNetOptimum, wordNetAll);
             }
             if (config.translatedNameRecognize) {
-                TranslatedPersonRecognition.Recognition(vertexList, wordNetOptimum, wordNetAll);
+                TranslatedPersonRecognition.recognition(vertexList, wordNetOptimum, wordNetAll);
             }
             if (config.japaneseNameRecognize) {
-                JapanesePersonRecognition.Recognition(vertexList, wordNetOptimum, wordNetAll);
+                JapanesePersonRecognition.recognition(vertexList, wordNetOptimum, wordNetAll);
             }
-            /*if (config.placeRecognize) {
-                PlaceRecognition.Recognition(vertexList, wordNetOptimum, wordNetAll);
+            if (config.placeRecognize) {
+                PlaceRecognition.recognition(vertexList, wordNetOptimum, wordNetAll);
             }
             if (config.organizationRecognize) {
                 // 层叠隐马模型——生成输出作为下一级隐马输入
@@ -61,8 +63,8 @@ public class ViterbiSegment extends WordBasedModelSegment {
                 wordNetOptimum.clear();
                 wordNetOptimum.addAll(vertexList);
                 preSize = wordNetOptimum.size();
-                OrganizationRecognition.Recognition(vertexList, wordNetOptimum, wordNetAll);
-            }*/
+                OrganizationRecognition.recognition(vertexList, wordNetOptimum, wordNetAll);
+            }
             if (wordNetOptimum.size() != preSize) {
                 vertexList = viterbi(wordNetOptimum);
                 if (Xmnlp.Config.DEBUG) {
@@ -70,7 +72,7 @@ public class ViterbiSegment extends WordBasedModelSegment {
                 }
             }
         }
-/*
+
         // 如果是索引模式则全切分
         if (config.indexMode) {
             return decorateResultForIndexMode(vertexList, wordNetAll);
@@ -79,8 +81,7 @@ public class ViterbiSegment extends WordBasedModelSegment {
         // 是否标注词性
         if (config.speechTagging) {
             speechTagging(vertexList);
-        }*/
-
+        }
         return convert(vertexList, config.offset);
     }
 

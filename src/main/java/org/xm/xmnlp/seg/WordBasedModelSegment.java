@@ -3,7 +3,9 @@ package org.xm.xmnlp.seg;
 import org.xm.xmnlp.collection.trie.DoubleArrayTrie;
 import org.xm.xmnlp.corpus.tag.Nature;
 import org.xm.xmnlp.dictionary.CoreDictionary;
+import org.xm.xmnlp.dictionary.CoreDictionaryTransformMatrixDictionary;
 import org.xm.xmnlp.dictionary.other.CharType;
+import org.xm.xmnlp.math.Viterbi;
 import org.xm.xmnlp.seg.domain.Graph;
 import org.xm.xmnlp.seg.domain.Term;
 import org.xm.xmnlp.seg.domain.Vertex;
@@ -441,7 +443,7 @@ public abstract class WordBasedModelSegment extends Segment {
      *
      * @param vertexList
      */
-//    protected static void speechTagging(List<Vertex> vertexList) {
-//        Viterbi.compute(vertexList, CoreDictionaryTransformMatrixDictionary.transformMatrixDictionary);
-//    }
+    protected static void speechTagging(List<Vertex> vertexList) {
+        Viterbi.compute(vertexList, CoreDictionaryTransformMatrixDictionary.transformMatrixDictionary);
+    }
 }

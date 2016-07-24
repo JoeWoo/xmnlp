@@ -12,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
+ * 词网
  * Created by mingzai on 2016/7/23.
  */
 public class WordNet {
