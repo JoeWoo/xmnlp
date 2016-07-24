@@ -43,28 +43,23 @@ public class TextUtil {
      */
     public static final int CT_OTHER = CT_SINGLE + 12;// Other
 
-    public static int charType(char c)
-    {
+    public static int charType(char c) {
         return charType(String.valueOf(c));
     }
 
     /**
      * 判断字符类型
+     *
      * @param str
      * @return
      */
-    public static int charType(String str)
-    {
-        if (str != null && str.length() > 0)
-        {
+    public static int charType(String str) {
+        if (str != null && str.length() > 0) {
             if ("零○〇一二两三四五六七八九十廿百千万亿壹贰叁肆伍陆柒捌玖拾佰仟".contains(str)) return CT_NUM;
             byte[] b;
-            try
-            {
+            try {
                 b = str.getBytes("GBK");
-            }
-            catch (UnsupportedEncodingException e)
-            {
+            } catch (UnsupportedEncodingException e) {
                 b = str.getBytes();
                 e.printStackTrace();
             }
@@ -72,16 +67,14 @@ public class TextUtil {
             byte b2 = b.length > 1 ? b[1] : 0;
             int ub1 = getUnsigned(b1);
             int ub2 = getUnsigned(b2);
-            if (ub1 < 128)
-            {
+            if (ub1 < 128) {
                 if (' ' == b1) return CT_OTHER;
                 if ("*\"!,.?()[]{}+=/\\;:|".indexOf((char) b1) != -1)
                     return CT_DELIMITER;
-                if ("0123456789".indexOf((char)b1) != -1)
+                if ("0123456789".indexOf((char) b1) != -1)
                     return CT_NUM;
                 return CT_SINGLE;
-            }
-            else if (ub1 == 162)
+            } else if (ub1 == 162)
                 return CT_INDEX;
             else if (ub1 == 163 && ub2 > 175 && ub2 < 186)
                 return CT_NUM;
@@ -100,25 +93,25 @@ public class TextUtil {
 
     /**
      * 是否全是中文
+     *
      * @param str
      * @return
      */
-    public static boolean isAllChinese(String str)
-    {
+    public static boolean isAllChinese(String str) {
         return str.matches("[\\u4E00-\\u9FA5]+");
     }
+
     /**
      * 是否全部不是中文
+     *
      * @param sString
      * @return
      */
-    public static boolean isAllNonChinese(byte[] sString)
-    {
+    public static boolean isAllNonChinese(byte[] sString) {
         int nLen = sString.length;
         int i = 0;
 
-        while (i < nLen)
-        {
+        while (i < nLen) {
             if (getUnsigned(sString[i]) < 248 && getUnsigned(sString[i]) > 175)
                 return false;
             if (sString[i] < 0)
@@ -131,27 +124,22 @@ public class TextUtil {
 
     /**
      * 是否全是单字节
+     *
      * @param str
      * @return
      */
-    public static boolean isAllSingleByte(String str)
-    {
-        if (str != null)
-        {
+    public static boolean isAllSingleByte(String str) {
+        if (str != null) {
             int len = str.length();
             int i = 0;
             byte[] b;
-            try
-            {
+            try {
                 b = str.getBytes("GBK");
-            }
-            catch (UnsupportedEncodingException e)
-            {
+            } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
                 b = str.getBytes();
             }
-            while (i < len && b[i] < 128)
-            {
+            while (i < len && b[i] < 128) {
                 i++;
             }
             if (i < len)
@@ -167,31 +155,27 @@ public class TextUtil {
      * @param str 要转换的字符串
      * @return 如果是有意义的整数，则返回此整数值。否则，返回-1。
      */
-    public static int cint(String str)
-    {
+    public static int cint(String str) {
         if (str != null)
-            try
-            {
+            try {
                 int i = new Integer(str).intValue();
                 return i;
-            }
-            catch (NumberFormatException e)
-            {
+            } catch (NumberFormatException e) {
 
             }
 
         return -1;
     }
+
     /**
      * 是否全是数字
+     *
      * @param str
      * @return
      */
-    public static boolean isAllNum(String str)
-    {
+    public static boolean isAllNum(String str) {
 
-        if (str != null)
-        {
+        if (str != null) {
             int i = 0;
             String temp = str + " ";
             // 判断开头是否是+-之类的符号
@@ -202,11 +186,9 @@ public class TextUtil {
                 i++;
 
             // Get middle delimiter such as .
-            if (i < str.length())
-            {
+            if (i < str.length()) {
                 String s = str.substring(i, i + 1);
-                if ("∶·．／".indexOf(s) != -1 || ".".equals(s) || "/".equals(s))
-                {// 98．1％
+                if ("∶·．／".indexOf(s) != -1 || ".".equals(s) || "/".equals(s)) {// 98．1％
                     i++;
                     while (i + 1 < str.length() && "０１２３４５６７８９".indexOf(str.substring(i + 1, i + 2)) != -1)
 
@@ -221,19 +203,16 @@ public class TextUtil {
                     && cint(str.substring(i, i + 1)) <= 9)
                 i++;
             // Get middle delimiter such as .
-            if (i < str.length())
-            {
+            if (i < str.length()) {
                 String s = str.substring(i, i + 1);
-                if ("∶·．／".indexOf(s) != -1 || ".".equals(s) || "/".equals(s))
-                {// 98．1％
+                if ("∶·．／".indexOf(s) != -1 || ".".equals(s) || "/".equals(s)) {// 98．1％
                     i++;
                     while (i + 1 < str.length() && "0123456789".indexOf(str.substring(i + 1, i + 2)) != -1)
                         i++;
                 }
             }
 
-            if (i < str.length())
-            {
+            if (i < str.length()) {
 
                 if ("百千万亿佰仟％‰".indexOf(str.substring(i, i + 1)) == -1
                         && !"%".equals(str.substring(i, i + 1)))
@@ -244,25 +223,24 @@ public class TextUtil {
         }
         return false;
     }
+
     /**
      * 是否全是序号
+     *
      * @param sString
      * @return
      */
-    public static boolean isAllIndex(byte[] sString)
-    {
+    public static boolean isAllIndex(byte[] sString) {
         int nLen = sString.length;
         int i = 0;
 
-        while (i < nLen - 1 && getUnsigned(sString[i]) == 162)
-        {
+        while (i < nLen - 1 && getUnsigned(sString[i]) == 162) {
             i += 2;
         }
         if (i >= nLen)
             return true;
         while (i < nLen && (sString[i] > 'A' - 1 && sString[i] < 'Z' + 1)
-                || (sString[i] > 'a' - 1 && sString[i] < 'z' + 1))
-        {// single
+                || (sString[i] > 'a' - 1 && sString[i] < 'z' + 1)) {// single
             // byte
             // number
             // char
@@ -281,13 +259,10 @@ public class TextUtil {
      * @param text
      * @return
      */
-    public static boolean isAllLetter(String text)
-    {
-        for (int i = 0; i < text.length(); ++i)
-        {
+    public static boolean isAllLetter(String text) {
+        for (int i = 0; i < text.length(); ++i) {
             char c = text.charAt(i);
-            if ((((c < 'a' || c > 'z')) && ((c < 'A' || c > 'Z'))))
-            {
+            if ((((c < 'a' || c > 'z')) && ((c < 'A' || c > 'Z')))) {
                 return false;
             }
         }
@@ -301,13 +276,10 @@ public class TextUtil {
      * @param text
      * @return
      */
-    public static boolean isAllLetterOrNum(String text)
-    {
-        for (int i = 0; i < text.length(); ++i)
-        {
+    public static boolean isAllLetterOrNum(String text) {
+        for (int i = 0; i < text.length(); ++i) {
             char c = text.charAt(i);
-            if ((((c < 'a' || c > 'z')) && ((c < 'A' || c > 'Z')) && ((c < '0' || c > '9'))))
-            {
+            if ((((c < 'a' || c > 'z')) && ((c < 'A' || c > 'Z')) && ((c < '0' || c > '9')))) {
                 return false;
             }
         }
@@ -317,16 +289,15 @@ public class TextUtil {
 
     /**
      * 是否全是分隔符
+     *
      * @param sString
      * @return
      */
-    public static boolean isAllDelimiter(byte[] sString)
-    {
+    public static boolean isAllDelimiter(byte[] sString) {
         int nLen = sString.length;
         int i = 0;
 
-        while (i < nLen - 1 && (getUnsigned(sString[i]) == 161 || getUnsigned(sString[i]) == 163))
-        {
+        while (i < nLen - 1 && (getUnsigned(sString[i]) == 161 || getUnsigned(sString[i]) == 163)) {
             i += 2;
         }
         if (i < nLen)
@@ -336,20 +307,18 @@ public class TextUtil {
 
     /**
      * 是否全是中国数字
+     *
      * @param word
      * @return
      */
-    public static boolean isAllChineseNum(String word)
-    {// 百分之五点六的人早上八点十八分起床
+    public static boolean isAllChineseNum(String word) {// 百分之五点六的人早上八点十八分起床
 
         String chineseNum = "零○一二两三四五六七八九十廿百千万亿壹贰叁肆伍陆柒捌玖拾佰仟∶·．／点";//
         String prefix = "几数第上成";
 
-        if (word != null)
-        {
+        if (word != null) {
             String temp = word + " ";
-            for (int i = 0; i < word.length(); i++)
-            {
+            for (int i = 0; i < word.length(); i++) {
 
                 if (temp.indexOf("分之", i) != -1)// 百分之五
                 {
@@ -375,15 +344,12 @@ public class TextUtil {
      * @param word
      * @return
      */
-    public static int getCharCount(String charSet, String word)
-    {
+    public static int getCharCount(String charSet, String word) {
         int nCount = 0;
 
-        if (word != null)
-        {
+        if (word != null) {
             String temp = word + " ";
-            for (int i = 0; i < word.length(); i++)
-            {
+            for (int i = 0; i < word.length(); i++) {
                 String s = temp.substring(i, i + 1);
                 if (charSet.indexOf(s) != -1)
                     nCount++;
@@ -400,8 +366,7 @@ public class TextUtil {
      * @param b
      * @return
      */
-    public static int getUnsigned(byte b)
-    {
+    public static int getUnsigned(byte b) {
         if (b > 0)
             return (int) b;
         else
@@ -414,10 +379,8 @@ public class TextUtil {
      * @param snum
      * @return
      */
-    public static boolean isYearTime(String snum)
-    {
-        if (snum != null)
-        {
+    public static boolean isYearTime(String snum) {
+        if (snum != null) {
             int len = snum.length();
             String first = snum.substring(0, 1);
 
@@ -447,13 +410,10 @@ public class TextUtil {
      * @param str  需要判断的字符串
      * @return
      */
-    public static boolean isInAggregate(String aggr, String str)
-    {
-        if (aggr != null && str != null)
-        {
+    public static boolean isInAggregate(String aggr, String str) {
+        if (aggr != null && str != null) {
             str += "1";
-            for (int i = 0; i < str.length(); i++)
-            {
+            for (int i = 0; i < str.length(); i++) {
                 String s = str.substring(i, i + 1);
                 if (aggr.indexOf(s) == -1)
                     return false;
@@ -470,21 +430,15 @@ public class TextUtil {
      * @param str
      * @return
      */
-    public static boolean isDBCCase(String str)
-    {
-        if (str != null)
-        {
+    public static boolean isDBCCase(String str) {
+        if (str != null) {
             str += " ";
-            for (int i = 0; i < str.length(); i++)
-            {
+            for (int i = 0; i < str.length(); i++) {
                 String s = str.substring(i, i + 1);
                 int length = 0;
-                try
-                {
+                try {
                     length = s.getBytes("GBK").length;
-                }
-                catch (UnsupportedEncodingException e)
-                {
+                } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                     length = s.getBytes().length;
                 }
@@ -504,21 +458,15 @@ public class TextUtil {
      * @param str
      * @return
      */
-    public static boolean isSBCCase(String str)
-    {
-        if (str != null)
-        {
+    public static boolean isSBCCase(String str) {
+        if (str != null) {
             str += " ";
-            for (int i = 0; i < str.length(); i++)
-            {
+            for (int i = 0; i < str.length(); i++) {
                 String s = str.substring(i, i + 1);
                 int length = 0;
-                try
-                {
+                try {
                     length = s.getBytes("GBK").length;
-                }
-                catch (UnsupportedEncodingException e)
-                {
+                } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                     length = s.getBytes().length;
                 }
@@ -538,16 +486,14 @@ public class TextUtil {
      * @param str
      * @return
      */
-    public static boolean isDelimiter(String str)
-    {
+    public static boolean isDelimiter(String str) {
         if (str != null && ("-".equals(str) || "－".equals(str)))
             return true;
         else
             return false;
     }
 
-    public static boolean isUnknownWord(String word)
-    {
+    public static boolean isUnknownWord(String word) {
         if (word != null && word.indexOf("未##") == 0)
             return true;
         else
@@ -560,8 +506,7 @@ public class TextUtil {
      * @param frequency
      * @return
      */
-    public static double nonZero(double frequency)
-    {
+    public static double nonZero(double frequency) {
         if (frequency == 0) return 1e-3;
 
         return frequency;
@@ -572,8 +517,7 @@ public class TextUtil {
      *
      * @param x
      */
-    public static char[] long2char(long x)
-    {
+    public static char[] long2char(long x) {
         char[] c = new char[4];
         c[0] = (char) (x >> 48);
         c[1] = (char) (x >> 32);
@@ -588,12 +532,10 @@ public class TextUtil {
      * @param x
      * @return
      */
-    public static String long2String(long x)
-    {
+    public static String long2String(long x) {
         char[] cArray = long2char(x);
         StringBuilder sbResult = new StringBuilder(cArray.length);
-        for (char c : cArray)
-        {
+        for (char c : cArray) {
             sbResult.append(c);
         }
         return sbResult.toString();
@@ -605,8 +547,7 @@ public class TextUtil {
      * @param e
      * @return
      */
-    public static String exceptionToString(Exception e)
-    {
+    public static String exceptionToString(Exception e) {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);
@@ -619,8 +560,7 @@ public class TextUtil {
      * @param c 需要判断的字符
      * @return 是汉字返回true，否则返回false
      */
-    public static boolean isChinese(char c)
-    {
+    public static boolean isChinese(char c) {
         String regex = "[\\u4e00-\\u9fa5]";
         return String.valueOf(c).matches(regex);
     }
@@ -632,24 +572,18 @@ public class TextUtil {
      * @param srcText
      * @return
      */
-    public static int count(String keyword, String srcText)
-    {
+    public static int count(String keyword, String srcText) {
         int count = 0;
         int leng = srcText.length();
         int j = 0;
-        for (int i = 0; i < leng; i++)
-        {
-            if (srcText.charAt(i) == keyword.charAt(j))
-            {
+        for (int i = 0; i < leng; i++) {
+            if (srcText.charAt(i) == keyword.charAt(j)) {
                 j++;
-                if (j == keyword.length())
-                {
+                if (j == keyword.length()) {
                     count++;
                     j = 0;
                 }
-            }
-            else
-            {
+            } else {
                 i = i - j;// should rollback when not match
                 j = 0;
             }
@@ -665,11 +599,9 @@ public class TextUtil {
      * @param out
      * @throws java.io.IOException
      */
-    public static void writeString(String s, DataOutputStream out) throws IOException
-    {
+    public static void writeString(String s, DataOutputStream out) throws IOException {
         out.writeInt(s.length());
-        for (char c : s.toCharArray())
-        {
+        for (char c : s.toCharArray()) {
             out.writeChar(c);
         }
     }
@@ -680,28 +612,22 @@ public class TextUtil {
      * @param cs
      * @return
      */
-    public static boolean isBlank(CharSequence cs)
-    {
+    public static boolean isBlank(CharSequence cs) {
         int strLen;
-        if (cs == null || (strLen = cs.length()) == 0)
-        {
+        if (cs == null || (strLen = cs.length()) == 0) {
             return true;
         }
-        for (int i = 0; i < strLen; i++)
-        {
-            if (!Character.isWhitespace(cs.charAt(i)))
-            {
+        for (int i = 0; i < strLen; i++) {
+            if (!Character.isWhitespace(cs.charAt(i))) {
                 return false;
             }
         }
         return true;
     }
 
-    public static String join(String delimiter, Collection<String> stringCollection)
-    {
+    public static String join(String delimiter, Collection<String> stringCollection) {
         StringBuilder sb = new StringBuilder(stringCollection.size() * (16 + delimiter.length()));
-        for (String str : stringCollection)
-        {
+        for (String str : stringCollection) {
             sb.append(str).append(delimiter);
         }
 

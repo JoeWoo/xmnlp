@@ -18,7 +18,7 @@ import static org.xm.xmnlp.util.Predefine.logger;
 /**
  * Xmnlp : xuming nlp 自然语言处理工具包
  * 常用接口工具类
- *
+ * <p/>
  * Created by xuming on 2016/7/22.
  */
 public class Xmnlp {
@@ -255,7 +255,8 @@ public class Xmnlp {
      * @return 一个分词器
      */
     public static Segment newSegment() {
-        return new ViterbiSegment();   // Viterbi分词器是目前效率和效果的最佳平衡
+        // Viterbi分词器是目前效率和效果的最佳平衡
+        return new ViterbiSegment();
     }
 
 }

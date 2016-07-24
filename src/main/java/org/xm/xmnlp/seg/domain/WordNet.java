@@ -68,19 +68,17 @@ public class WordNet {
         vertexes[line].add(vertex);
         ++size;
     }
+
     /**
      * 强行添加，替换已有的顶点
      *
      * @param line
      * @param vertex
      */
-    public void push(int line, Vertex vertex)
-    {
+    public void push(int line, Vertex vertex) {
         Iterator<Vertex> iterator = vertexes[line].iterator();
-        while (iterator.hasNext())
-        {
-            if (iterator.next().realWord.length() == vertex.realWord.length())
-            {
+        while (iterator.hasNext()) {
+            if (iterator.next().realWord.length() == vertex.realWord.length()) {
                 iterator.remove();
                 --size;
                 break;
@@ -89,6 +87,7 @@ public class WordNet {
         vertexes[line].add(vertex);
         ++size;
     }
+
     /**
      * 添加顶点，同时检查此顶点是否悬孤，如果悬孤则自动补全
      *
@@ -96,53 +95,42 @@ public class WordNet {
      * @param vertex
      * @param wordNetAll 这是一个完全的词图
      */
-    public void insert(int line, Vertex vertex, WordNet wordNetAll)
-    {
-        for (Vertex oldVertex : vertexes[line])
-        {
+    public void insert(int line, Vertex vertex, WordNet wordNetAll) {
+        for (Vertex oldVertex : vertexes[line]) {
             // 保证唯一性
             if (oldVertex.realWord.length() == vertex.realWord.length()) return;
         }
         vertexes[line].add(vertex);
         ++size;
         // 保证连接
-        for (int l = line - 1; l > 1; --l)
-        {
-            if (get(l, 1) == null)
-            {
+        for (int l = line - 1; l > 1; --l) {
+            if (get(l, 1) == null) {
                 Vertex first = wordNetAll.getFirst(l);
                 if (first == null) break;
                 vertexes[l].add(first);
                 ++size;
                 if (vertexes[l].size() > 1) break;
-            }
-            else
-            {
+            } else {
                 break;
             }
         }
         // 首先保证这个词语可直达
         int l = line + vertex.realWord.length();
-        if (get(l).size() == 0)
-        {
+        if (get(l).size() == 0) {
             List<Vertex> targetLine = wordNetAll.get(l);
             if (targetLine == null || targetLine.size() == 0) return;
             vertexes[l].addAll(targetLine);
             size += targetLine.size();
         }
         // 直达之后一直往后
-        for (++l; l < vertexes.length; ++l)
-        {
-            if (get(l).size() == 0)
-            {
+        for (++l; l < vertexes.length; ++l) {
+            if (get(l).size() == 0) {
                 Vertex first = wordNetAll.getFirst(l);
                 if (first == null) break;
                 vertexes[l].add(first);
                 ++size;
                 if (vertexes[l].size() > 1) break;
-            }
-            else
-            {
+            } else {
                 break;
             }
         }
@@ -153,11 +141,9 @@ public class WordNet {
      *
      * @param vertexList
      */
-    public void addAll(List<Vertex> vertexList)
-    {
+    public void addAll(List<Vertex> vertexList) {
         int i = 0;
-        for (Vertex vertex : vertexList)
-        {
+        for (Vertex vertex : vertexList) {
             add(i, vertex);
             i += vertex.realWord.length();
         }
@@ -169,8 +155,7 @@ public class WordNet {
      * @param line 行号
      * @return 一个数组
      */
-    public List<Vertex> get(int line)
-    {
+    public List<Vertex> get(int line) {
         return vertexes[line];
     }
 
@@ -180,11 +165,9 @@ public class WordNet {
      * @param line
      * @return
      */
-    public Vertex getFirst(int line)
-    {
+    public Vertex getFirst(int line) {
         Iterator<Vertex> iterator = vertexes[line].iterator();
         if (iterator.hasNext()) return iterator.next();
-
         return null;
     }
 
@@ -195,16 +178,12 @@ public class WordNet {
      * @param length
      * @return
      */
-    public Vertex get(int line, int length)
-    {
-        for (Vertex vertex : vertexes[line])
-        {
-            if (vertex.realWord.length() == length)
-            {
+    public Vertex get(int line, int length) {
+        for (Vertex vertex : vertexes[line]) {
+            if (vertex.realWord.length() == length) {
                 return vertex;
             }
         }
-
         return null;
     }
 
@@ -214,17 +193,15 @@ public class WordNet {
      * @param line
      * @param atomSegment
      */
-    public void add(int line, List<AtomNode> atomSegment)
-    {
+    public void add(int line, List<AtomNode> atomSegment) {
         // 将原子部分存入m_segGraph
         int offset = 0;
         for (AtomNode atomNode : atomSegment)//Init the cost array
         {
-            String sWord = atomNode.sWord;//init the word
+            String sWord = atomNode.sWord;//initUserDic the word
             Nature nature = Nature.n;
             int id = -1;
-            switch (atomNode.nPOS)
-            {
+            switch (atomNode.nPOS) {
                 case Predefine.CT_CHINESE:
                     break;
                 case Predefine.CT_INDEX:
@@ -251,8 +228,7 @@ public class WordNet {
         }
     }
 
-    public int size()
-    {
+    public int size() {
         return size;
     }
 

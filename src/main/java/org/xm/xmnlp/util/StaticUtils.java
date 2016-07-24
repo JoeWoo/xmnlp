@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.HashMap;
 
 /**
+ * 全局静态变量
  * Created by mingzai on 2016/6/21.
  */
 public class StaticUtils {
@@ -38,10 +39,10 @@ public class StaticUtils {
             while ((temp = br.readLine()) != null) {
                 strs = temp.split("[\t]");
                 cna = new String[2];
-                if(strs.length == 2){
+                if (strs.length == 2) {
                     cna[0] = strs[1];
                 }
-                if(strs.length == 3){
+                if (strs.length == 3) {
                     cna[1] = strs[2].trim();
                 }
                 cnMap.put(strs[0], cna);

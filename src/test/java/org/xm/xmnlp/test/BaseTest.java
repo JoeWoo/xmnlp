@@ -4,13 +4,11 @@ package org.xm.xmnlp.test;
 import junit.framework.TestCase;
 import org.junit.Test;
 import org.xm.xmnlp.dic.Item;
-import org.xm.xmnlp.dic.WordDict;
 import org.xm.xmnlp.segword.Rule;
 import org.xm.xmnlp.segword.SegMode;
 import org.xm.xmnlp.segword.Segmenter;
 
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
+import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Locale;
 import java.util.Vector;
@@ -96,12 +94,6 @@ public class BaseTest extends TestCase {
 
 
     @Override
-    protected void setUp() throws Exception {
-        WordDict.getInstance().init(Paths.get("conf"));
-    }
-
-
-    @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
@@ -150,7 +142,7 @@ public class BaseTest extends TestCase {
         for (int i = 0; i < 2000; ++i)
             for (String sentence : sentences) {
                 segmenter.process(sentence, SegMode.INDEX);
-                length += sentence.getBytes(StandardCharsets.UTF_8).length;
+                length += sentence.getBytes(Charset.forName("UTF-8")).length;
                 wordCount += sentence.length();
             }
         long elapsed = (System.currentTimeMillis() - start);
@@ -167,7 +159,7 @@ public class BaseTest extends TestCase {
         for (int i = 0; i < 100; ++i)
             for (String sentence : longSentences) {
                 segmenter.process(sentence, SegMode.INDEX);
-                length += sentence.getBytes(StandardCharsets.UTF_8).length;
+                length += sentence.getBytes(Charset.forName("UTF-8")).length;
                 wordCount += sentence.length();
             }
         long elapsed = (System.currentTimeMillis() - start);

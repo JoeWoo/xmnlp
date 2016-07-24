@@ -4,6 +4,9 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * 字符串处理工具类
+ */
 public class StringUtil {
 
     private static final char DY = '\'';
@@ -246,7 +249,6 @@ public class StringUtil {
     }
 
     public static boolean isBlank(char[] chars) {
-        // TODO Auto-generated method stub
         int strLen;
         if (chars == null || (strLen = chars.length) == 0) {
             return true;

@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * 从系统各个环境中找文件.或者文件夹
  *
- * @author
  */
 public class FileFinder {
 	/**
@@ -71,7 +70,6 @@ public class FileFinder {
 	 *
 	 * @param file
 	 * @param lastPath
-	 * @param deep integer.max
 	 * @return
 	 */
 	public static File findByFile(File file, String lastPath){

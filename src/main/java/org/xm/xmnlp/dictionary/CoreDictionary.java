@@ -15,6 +15,7 @@ import java.util.TreeMap;
 import static org.xm.xmnlp.util.Predefine.logger;
 
 /**
+ * 核心词典
  * Created by mingzai on 2016/7/23.
  */
 public class CoreDictionary {

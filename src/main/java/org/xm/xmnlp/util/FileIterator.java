@@ -5,8 +5,6 @@ import java.util.Iterator;
 
 /**
  * 文件迭代器
- * 
- * @author
  */
 public class FileIterator implements Iterator<String> {
 	String temp = null;

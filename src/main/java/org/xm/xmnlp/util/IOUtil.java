@@ -1,6 +1,5 @@
 package org.xm.xmnlp.util;
 
-
 import org.xm.xmnlp.corpus.tag.Nature;
 import org.xm.xmnlp.dictionary.CoreDictionary;
 
@@ -14,9 +13,7 @@ import java.util.Map.Entry;
 import static org.xm.xmnlp.util.Predefine.logger;
 
 /**
- * java 一个简单的io操作
- *
- * @author
+ * io操作
  */
 public class IOUtil {
     public static final String UTF8 = "UTF-8";

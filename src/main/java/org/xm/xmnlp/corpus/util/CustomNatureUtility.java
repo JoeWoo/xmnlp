@@ -3,6 +3,7 @@ package org.xm.xmnlp.corpus.util;
 
 import org.xm.xmnlp.corpus.tag.Nature;
 import org.xm.xmnlp.dictionary.CustomDictionary;
+import org.xm.xmnlp.recognition.person.PersonRecognition;
 import org.xm.xmnlp.seg.domain.Vertex;
 
 import java.util.Map;
@@ -12,7 +13,6 @@ import static org.xm.xmnlp.util.Predefine.logger;
 
 /**
  * 运行时动态增加词性工具
- *
  */
 public class CustomNatureUtility {
     static {
@@ -28,9 +28,9 @@ public class CustomNatureUtility {
     private static EnumBuster<Nature> enumBuster = new EnumBuster<Nature>(
             Nature.class,
             CustomDictionary.class,
-            Vertex.class
-//                                                                          PersonRecognition.class,
-//                                                                          OrganizationRecognition.class
+            Vertex.class,
+            PersonRecognition.class/*,
+            OrganizationRecognition.class*/
     );
 
     /**

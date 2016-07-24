@@ -14,6 +14,8 @@ import java.util.*;
 import java.util.regex.Matcher;
 
 /**
+ * 分词器
+ * 基于 =HMM= 模型，采用 =Viterbi= (维特比)算法实现未登录词识别
  * Created by xuming on 2016/7/6.
  */
 public class FinalSegmenter {

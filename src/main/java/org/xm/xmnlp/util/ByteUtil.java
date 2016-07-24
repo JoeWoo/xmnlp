@@ -3,8 +3,6 @@ package org.xm.xmnlp.util;
 /**
  * Created by mingzai on 2016/7/23.
  */
-
-
 import java.io.DataOutputStream;
 import java.io.IOException;
 

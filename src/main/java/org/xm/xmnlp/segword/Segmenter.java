@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 生成所有切词可能的有向无环图 =DAG=
  * Created by xuming on 2016/7/6.
- * 统计概率分词器
  */
 public class Segmenter {
     private static WordDict wordDict = WordDict.getInstance();
@@ -135,12 +135,18 @@ public class Segmenter {
         return tokens;
     }
 
+    /**
+     * 中文分词
+     * @param paragraph
+     * @param mode
+     * @return
+     */
     public List<Item> process(String paragraph, SegMode mode) {
         List<Item> tokens = new ArrayList<Item>();
         StringBuilder sb = new StringBuilder();
         int offset = 0;
         for (int i = 0; i < paragraph.length(); ++i) {
-            char ch = CharacterUtil.regularize(paragraph.charAt(i));
+            char ch = CharacterUtil.regularize(paragraph.charAt(i));// 字串先规范化处理
             if (CharacterUtil.ccFind(ch))
                 sb.append(ch);
             else {

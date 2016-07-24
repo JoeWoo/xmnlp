@@ -23,7 +23,6 @@ import java.util.Map;
 /**
  * 演示用户词典的动态增删
  *
- * @author hankcs
  */
 public class DemoCustomDictionary {
     public static void main(String[] args) {
