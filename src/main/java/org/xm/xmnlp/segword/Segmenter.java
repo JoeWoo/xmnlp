@@ -59,17 +59,17 @@ public class Segmenter {
     }
 
     //calcuate next value
-    private Map<Integer, Pair<Integer>> calc(String sentence, Map<Integer, List<Integer>> dag) {
+    private Map<Integer, DictPair<Integer>> calc(String sentence, Map<Integer, List<Integer>> dag) {
         int N = sentence.length();
-        HashMap<Integer, Pair<Integer>> route = new HashMap<Integer, Pair<Integer>>();
-        route.put(N, new Pair<Integer>(0, 0.0, ""));
+        HashMap<Integer, DictPair<Integer>> route = new HashMap<Integer, DictPair<Integer>>();
+        route.put(N, new DictPair<Integer>(0, 0.0, ""));
         for (int i = N - 1; i > -1; i--) {
-            Pair<Integer> candidate = null;
+            DictPair<Integer> candidate = null;
             for (Integer x : dag.get(i)) {
                 double freq = wordDict.getFreq(sentence.substring(i, x + 1)) + route.get(x + 1).freq;
                 String nature = wordDict.getNature(sentence.substring(i, x + 1)) + route.get(x + 1).nature;
                 if (null == candidate) {
-                    candidate = new Pair<Integer>(x, freq, nature);
+                    candidate = new DictPair<Integer>(x, freq, nature);
                 } else if (candidate.freq < freq) {
                     candidate.freq = freq;
                     candidate.key = x;
@@ -93,7 +93,7 @@ public class Segmenter {
         List<String> tokens = new ArrayList<String>();
         int N = sentence.length();
         Map<Integer, List<Integer>> dag = createDAG(sentence);
-        Map<Integer, Pair<Integer>> route = calc(sentence, dag);
+        Map<Integer, DictPair<Integer>> route = calc(sentence, dag);
 
         int x = 0;
         int y = 0;

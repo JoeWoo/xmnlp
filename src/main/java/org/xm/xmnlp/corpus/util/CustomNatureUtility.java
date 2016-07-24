@@ -2,7 +2,9 @@ package org.xm.xmnlp.corpus.util;
 
 
 import org.xm.xmnlp.corpus.tag.Nature;
+import org.xm.xmnlp.dictionary.CoreDictionaryTransformMatrixDictionary;
 import org.xm.xmnlp.dictionary.CustomDictionary;
+import org.xm.xmnlp.recognition.organ.OrganizationRecognition;
 import org.xm.xmnlp.recognition.person.PersonRecognition;
 import org.xm.xmnlp.seg.domain.Vertex;
 
@@ -16,8 +18,9 @@ import static org.xm.xmnlp.util.Predefine.logger;
  */
 public class CustomNatureUtility {
     static {
-        logger.warning("已激活自定义词性功能,由于采用了反射技术,用户需对本地环境的兼容性和稳定性负责!\n" +
-                "如果用户代码X.java中有switch(nature)语句,需要调用CustomNatureUtility.registerSwitchClass(X.class)注册X这个类");
+        logger.warning("已激活自定义词性功能,由于采用了反射技术,用户需对本地环境的兼容性和稳定性负责!"
+//                "如果用户代码X.java中有switch(nature)语句,需要调用CustomNatureUtility.registerSwitchClass(X.class)注册X这个类"
+        );
     }
 
     private static Map<String, Nature> extraValueMap = new TreeMap<String, Nature>();
@@ -29,8 +32,8 @@ public class CustomNatureUtility {
             Nature.class,
             CustomDictionary.class,
             Vertex.class,
-            PersonRecognition.class/*,
-            OrganizationRecognition.class*/
+            PersonRecognition.class,
+            OrganizationRecognition.class
     );
 
     /**
@@ -46,7 +49,7 @@ public class CustomNatureUtility {
         enumBuster.addByValue(customNature);
         extraValueMap.put(name, customNature);
         // 必须对词性标注HMM模型中的元组做出调整
-//        CoreDictionaryTransformMatrixDictionary.transformMatrixDictionary.extendSize();
+        CoreDictionaryTransformMatrixDictionary.transformMatrixDictionary.extendSize();
 
         return customNature;
     }

@@ -9,17 +9,27 @@
     - 正向最大匹配法
     - 逆向最大匹配法
     - 双向最大匹配法
-2. add jieba segmentation java:2016.07.06
+2. add jieba segmentation java 2016.07.06
 	- 基于 trie 树结构实现高效词图扫描
   	- 生成所有切词可能的有向无环图 DAG
   	- 采用动态规划算法计算最佳切词组合
   	- 基于 =HMM= 模型，采用 =Viterbi= (维特比)算法实现未登录词识别
-3. add xmnlp to xmnlp 2016.07.23
+3. add hanlp to xmnlp 2016.07.23
 	- 基于双数组 trie 树结构实现高效词图扫描存储词典
 	- 最短路径分词，最短路求解采用Viterbi算法
 	- 添加人名识别功能：中文人名，日本人名，音译人名识别功能
 4. alter jdk from 1.7 to 1.6 2016.07.24
 	- 兼容jdk1.6版本，把所有用jdk1.7甚至1.8的写法用1.6重写了
+5. add organization recognition, place recognization ,ahocorasick algoritm and tire tree 20160724 xuming
+	- 机构名识别功能
+	- 地名识别
+	- trie词典树，基于贝尔实验室的 Aho-Corasick 白皮书完成，将来可以改为双数组trie数提高效率
+6. add pinyin to xmnlp 2016.07.24 xuming
+	- 汉字转拼音功能：结果可以显示为数字音调，符号音调，无音调，声调，声母，韵母，输入法头
+	- 汉字拼音可以作为分词属性之一
+
+
+
 
 ---
 

@@ -491,6 +491,7 @@ public class IOUtil {
             return bytes;
         } catch (Exception e) {
             logger.warning("读取" + path + "时发生异常" + e);
+            logger.warning("开始生成" + path + " ...");
         }
 
         return null;

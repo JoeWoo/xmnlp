@@ -1,5 +1,9 @@
 package org.xm.xmnlp;
 
+import org.xm.xmnlp.dictionary.pinyin.Pinyin;
+import org.xm.xmnlp.dictionary.pinyin.PinyinDictionary;
+import org.xm.xmnlp.dictionary.traditionalsimplified.SimplifiedChineseDictionary;
+import org.xm.xmnlp.dictionary.traditionalsimplified.TraditionalChineseDictionary;
 import org.xm.xmnlp.seg.Segment;
 import org.xm.xmnlp.seg.domain.Term;
 import org.xm.xmnlp.seg.viterbi.ViterbiSegment;
@@ -257,6 +261,82 @@ public class Xmnlp {
     public static Segment newSegment() {
         // Viterbi分词器是目前效率和效果的最佳平衡
         return new ViterbiSegment();
+    }
+
+    /**
+     * 简转繁
+     *
+     * @param traditionalChineseString 繁体中文
+     * @return 简体中文
+     */
+    public static String convertToSimplifiedChinese(String traditionalChineseString) {
+        return TraditionalChineseDictionary.convertToSimplifiedChinese(traditionalChineseString.toCharArray());
+    }
+
+    /**
+     * 繁转简
+     *
+     * @param simplifiedChineseString 简体中文
+     * @return 繁体中文
+     */
+    public static String convertToTraditionalChinese(String simplifiedChineseString) {
+        return SimplifiedChineseDictionary.convertToTraditionalChinese(simplifiedChineseString.toCharArray());
+    }
+
+    /**
+     * 转化为拼音
+     *
+     * @param text       文本
+     * @param separator  分隔符
+     * @param remainNone 有些字没有拼音（如标点），是否保留它们（用none表示）
+     * @return 一个字符串，由[拼音][分隔符][拼音]构成
+     */
+    public static String convertToPinyinString(String text, String separator, boolean remainNone) {
+        List<Pinyin> pinyinList = PinyinDictionary.convertToPinyin(text, remainNone);
+        int length = pinyinList.size();
+        StringBuilder sb = new StringBuilder(length * (5 + separator.length()));
+        int i = 1;
+        for (Pinyin pinyin : pinyinList) {
+            sb.append(pinyin.getPinyinWithoutTone());
+            if (i < length) {
+                sb.append(separator);
+            }
+            ++i;
+        }
+        return sb.toString();
+    }
+
+    /**
+     * 转化为拼音
+     *
+     * @param text 待解析的文本
+     * @return 一个拼音列表
+     */
+    public static List<Pinyin> convertToPinyinList(String text) {
+        return PinyinDictionary.convertToPinyin(text);
+    }
+
+    /**
+     * 转化为拼音（首字母）
+     *
+     * @param text       文本
+     * @param separator  分隔符
+     * @param remainNone 有些字没有拼音（如标点），是否保留它们（用none表示）
+     * @return 一个字符串，由[首字母][分隔符][首字母]构成
+     */
+    public static String convertToPinyinFirstCharString(String text, String separator, boolean remainNone) {
+        List<Pinyin> pinyinList = PinyinDictionary.convertToPinyin(text, remainNone);
+        int length = pinyinList.size();
+        StringBuilder sb = new StringBuilder(length * (1 + separator.length()));
+        int i = 1;
+        for (Pinyin pinyin : pinyinList) {
+            sb.append(pinyin.getFirstChar());
+            if (i < length) {
+                sb.append(separator);
+            }
+            ++i;
+        }
+        return sb.toString();
     }
 
 }

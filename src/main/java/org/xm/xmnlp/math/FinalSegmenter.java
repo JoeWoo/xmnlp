@@ -2,7 +2,7 @@ package org.xm.xmnlp.math;
 
 
 import org.xm.xmnlp.dic.Node;
-import org.xm.xmnlp.dic.Pair;
+import org.xm.xmnlp.dic.DictPair;
 import org.xm.xmnlp.util.CharacterUtil;
 
 import java.io.BufferedReader;
@@ -158,14 +158,14 @@ public class FinalSegmenter {
                 Double emp = emit.get(y).get(sentence.charAt(i));
                 if (emp == null)
                     emp = MIN_FLOAT;
-                Pair<Character> candidate = null;
+                DictPair<Character> candidate = null;
                 for (char y0 : prevStatus.get(y)) {
                     Double tranp = trans.get(y0).get(y);
                     if (null == tranp)
                         tranp = MIN_FLOAT;
                     tranp += (emp + v.get(i - 1).get(y0));
                     if (null == candidate)
-                        candidate = new Pair<Character>(y0, tranp,"");
+                        candidate = new DictPair<Character>(y0, tranp,"");
                     else if (candidate.freq <= tranp) {
                         candidate.freq = tranp;
                         candidate.key = y0;

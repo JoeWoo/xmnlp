@@ -119,7 +119,7 @@ public class Predefine {
     /**
      * 日志组件
      */
-    public static Logger logger = Logger.getLogger("HanLP");
+    public static Logger logger = Logger.getLogger("Xmnlp");
 
     static {
         logger.setLevel(Level.WARNING);
