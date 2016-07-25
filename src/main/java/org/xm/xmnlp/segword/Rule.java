@@ -9,7 +9,7 @@ import java.util.Vector;
 
 /**
  * 规则分词
- *
+ * <p>
  * xuming
  */
 public class Rule {
@@ -20,7 +20,7 @@ public class Rule {
     /**
      * @Title: 反向最大匹配
      */
-    public Vector<String> ReverseMaxSeg(String input) {
+    public static Vector<String> reverseMaxSeg(String input) {
         if (input == null || input.isEmpty()) {
             return null;
         }
@@ -54,7 +54,7 @@ public class Rule {
     /**
      * @Title: 正向最大匹配
      */
-    public Vector<String> ForwardMaxSeg(String input) {
+    public static Vector<String> forwardMaxSeg(String input) {
         if (input == null || input.isEmpty()) {
             return null;
         }
@@ -85,9 +85,9 @@ public class Rule {
      * fresults 正向匹配的分词结果
      * bresults 逆向匹配的分词结果
      */
-    public Vector<String> BIMaxSeg(String input) {
-        Vector<String> fresults = ForwardMaxSeg(input);
-        Vector<String> bresults = ReverseMaxSeg(input);
+    public static Vector<String> biMaxSeg(String input) {
+        Vector<String> fresults = forwardMaxSeg(input);
+        Vector<String> bresults = reverseMaxSeg(input);
         //如果正反向分词结果词数不同，则取分词数量较少的那个
         if (fresults.size() != bresults.size()) {
             if (fresults.size() > bresults.size())

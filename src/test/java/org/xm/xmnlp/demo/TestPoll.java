@@ -8,23 +8,22 @@ import java.util.Queue;
  */
 public class TestPoll {
     public static void main(String[] args) {
-        Queue<String> queue=new LinkedList<String>();
+        Queue<String> queue = new LinkedList<String>();
 
         queue.offer("Hello");
         queue.offer("world!");
         queue.offer("您好！");
 
-        System.out.println("使用offer()之后队列的长度："+queue.size());
-        System.out.println("使用peek()取出第一个元素：  "+queue.peek());
-        System.out.println("使用element()取出第一个元素：  "+queue.element());
-        System.out.println("使用peek/element之后队列的长度：  "+queue.size());
-        System.out.println("使用poll()循环取出并删除元素："+queue.poll());
+        System.out.println("使用offer()之后队列的长度：" + queue.size());
+        System.out.println("使用peek()取出第一个元素：  " + queue.peek());
+        System.out.println("使用element()取出第一个元素：  " + queue.element());
+        System.out.println("使用peek/element之后队列的长度：  " + queue.size());
+        System.out.println("使用poll()循环取出并删除元素：" + queue.poll());
         String str;
-        while((str=queue.poll())!=null)
-        {
-            System.out.print(" "+str);
+        while ((str = queue.poll()) != null) {
+            System.out.print(" " + str);
         }
         System.out.println();
-        System.out.print("使用poll()后队列的长度："+queue.size());
+        System.out.print("使用poll()后队列的长度：" + queue.size());
     }
 }

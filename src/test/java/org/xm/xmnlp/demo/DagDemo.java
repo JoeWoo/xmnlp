@@ -4,6 +4,7 @@ package org.xm.xmnlp.demo;
 import org.xm.xmnlp.segword.Segmenter;
 
 /**
+ * 演示生成DAG结果
  * Created by xuming on 2016/7/6.
  */
 public class DagDemo {
