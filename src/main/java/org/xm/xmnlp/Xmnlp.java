@@ -7,6 +7,7 @@ import org.xm.xmnlp.dictionary.traditionalsimplified.TraditionalChineseDictionar
 import org.xm.xmnlp.seg.Segment;
 import org.xm.xmnlp.seg.domain.Term;
 import org.xm.xmnlp.seg.viterbi.ViterbiSegment;
+import org.xm.xmnlp.summary.TextRankKeyword;
 import org.xm.xmnlp.tokenizer.StandardTokenizer;
 import org.xm.xmnlp.util.Predefine;
 
@@ -202,14 +203,14 @@ public class Xmnlp {
                         }
                     }
                 }
-//                sbInfo.append("Web项目则请放到下列目录：\n" +
-//                        "Webapp/WEB-INF/lib\n" +
-//                        "Webapp/WEB-INF/classes\n" +
-//                        "Appserver/lib\n" +
-//                        "JRE/lib\n");
-//                sbInfo.append("并且编辑root=PARENT/path/to/your/data\n");
+                /*sbInfo.append("Web项目则请放到下列目录：\n" +
+                        "Webapp/WEB-INF/lib\n" +
+                        "Webapp/WEB-INF/classes\n" +
+                        "Appserver/lib\n" +
+                        "JRE/lib\n");
+                sbInfo.append("并且编辑root=PARENT/path/to/your/data\n");*/
                 sbInfo.append("现在Xmnlp将尝试从").append(System.getProperties().get("user.dir")).append("读取data……");
-//                logger.severe("没有找到Xmnlp.properties，可能会导致找不到data\n" + sbInfo);
+                //logger.severe("没有找到Xmnlp.properties，可能会导致找不到data\n" + sbInfo);
 
             }
         }
@@ -337,6 +338,16 @@ public class Xmnlp {
             ++i;
         }
         return sb.toString();
+    }
+
+    /**
+     * 提取关键词
+     * @param sentence 句子
+     * @param size 希望提取几个关键词个数
+     * @return 关键词列表
+     */
+    public static List<String> extractKeyword(String sentence, int size) {
+        return TextRankKeyword.getKeywordList(sentence, size);
     }
 
 }

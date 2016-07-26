@@ -8,8 +8,6 @@ import static org.xm.xmnlp.util.Predefine.logger;
 
 /**
  * 对字节数组进行封装，提供方便的读取操作
- *
- * @author hankcs
  */
 public class ByteArray {
     byte[] bytes;
